@@ -1,4 +1,5 @@
-# Probabilities for key changes from : to
+# Weights for key changes from : to
+# Weights can be any positive number
 WEIGHTS = {
     'd' : {
         'g' : .3,

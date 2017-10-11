@@ -171,7 +171,7 @@ class TuneList:
 
     def _generate_random_sequence(self, tune, position=None, n=3):
         """
-        Take a tune and return a random sequence of tunes based on weighted probabilities.
+        Take a tune and return a random sequence of tunes based on weights.
         Arguments
         position (int): Where the specified tune appears in the sequence.
         n (int): The number of tunes to return.
@@ -235,11 +235,12 @@ class TuneList:
                 w = weights.WEIGHTS[key]
             # Return a random key from the tuple if no weights are available
             except KeyError:
-                print('No probabilities found for {}'.format(key))
+                print('No weight found for {}'.format(key))
                 population = None
             else:
+                total = sum(w.values())
+                cumulative_weights = [v / total * 100 for v in cumulative(w.values())]
                 population = w.keys()
-                cumulative_weights = [v * 100 for v in cumulative(w.values())]
         else:
             absolute_weights_backwards = { k : v[key] * len(v) for k,v in weights.WEIGHTS.items() if\
                           key in v.keys()}
